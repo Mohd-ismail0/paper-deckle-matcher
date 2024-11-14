@@ -1,0 +1,24 @@
+run = "npm start"
+entrypoint = "server.js"
+modules = ["nodejs-20"]
+hidden = [".config", "package-lock.json"]
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+build = ["sh", "-c", "cd client && npm install && npm run build"]
+deploymentTarget = "static"
+ignorePorts = false
+publicDir = "client/build"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[env]
+PORT = "5000"
+NODE_ENV = "production"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", "package.json", "package-lock.json"]
